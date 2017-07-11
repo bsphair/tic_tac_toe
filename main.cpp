@@ -29,7 +29,6 @@ int main(){
     //board.printBoard();
 
 
-    int x = 0;
 
     /*
         1. GamePlay has a GameBoard

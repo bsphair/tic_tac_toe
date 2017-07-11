@@ -1,7 +1,7 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-#include <GameBoard.hpp>
+#include <gameboard.hpp>
 #include <string>
 
 
@@ -15,10 +15,15 @@ class GamePlay
 
         int moveCounter;
 
+        int *horizontalTracker;
+
 
     public:
         GamePlay();
         virtual ~GamePlay();
+
+        void initializeHorizontalTracker();
+        void printHorizontalTracker();
 
         void setPlayerPieces();
 
@@ -26,7 +31,7 @@ class GamePlay
 
         bool userImputValidation(int);
 
-
+        bool horrizontalScan(string);
 
 };
 

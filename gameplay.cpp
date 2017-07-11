@@ -12,12 +12,32 @@
 GamePlay::GamePlay()
 {
     moveCounter = 0;
+
+    horizontalTracker = new int(board.getBoardWidth());
+
     //ctor
 }
 
+/*
+* Description:
+* Input:
+* Output:
+*/
 GamePlay::~GamePlay()
 {
     //dtor
+}
+
+/*
+* Description: initializes elements in the horizontalTracker
+*              array to zero
+* Input:
+* Output:
+*/
+void GamePlay::initializeHorizontalTracker(){
+    for(int width = 0; width < board.getBoardWidth(); width++){
+        horizontalTracker[width] = 0;
+    }
 }
 
 void GamePlay::setPlayerPieces(){
@@ -64,6 +84,9 @@ void GamePlay::playGame(){
     bool endGame = false;
     bool testUserInput;
     bool boardIsFull = false;
+    bool checkPlayerWon = false;
+
+    initializeHorizontalTracker();
 
 
     while(!endGame){
@@ -102,6 +125,11 @@ void GamePlay::playGame(){
                 //clear buffer stream
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                checkPlayerWon = horrizontalScan(playerOne);
+                if(checkPlayerWon == true){
+                        std::cout << "Player one wins game!" << std::endl;
+                }
             }
 
             moveCounter++; //account for board filling up
@@ -121,6 +149,8 @@ void GamePlay::playGame(){
 
         board.printBoard();
     }
+
+    printHorizontalTracker();
 }
 
 
@@ -140,3 +170,50 @@ bool GamePlay::userImputValidation(int userChoice){
     }
 }
 
+
+bool GamePlay::horrizontalScan(string playerPiece){
+
+    int inARow = 0;
+
+    initializeHorizontalTracker();
+
+    for(int height = 0; height < board.getBoardHeigth(); height++)
+    {
+
+        for(int width = 0; width < board.getBoardWidth(); width++)
+        {
+
+                if(board.getBoardPiece(height, width) == playerPiece)
+                {
+                    horizontalTracker[height]++;
+                }
+        }
+        if(horizontalTracker[height] == 3)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+void GamePlay::printHorizontalTracker(){
+
+    for(int x = 0; x < board.getBoardWidth(); x++){
+        std::cout << horizontalTracker[x] << " ";
+    }
+}
+
+
+
+            /*
+            if(board.searchBoard(playerPiece, height, width) == true){
+                inARow++;
+            }
+            std::cout << "inARow: " << inARow << std::endl;
+
+            if(inARow == 3){
+                std::cout << "WINS!!!!" << std::endl;
+                break;
+            }*/

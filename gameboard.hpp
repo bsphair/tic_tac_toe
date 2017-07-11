@@ -20,6 +20,12 @@ class GameBoard
         GameBoard();
         virtual ~GameBoard();
 
+        int getBoardHeigth();
+        int getBoardWidth();
+
+        bool searchBoard(string, int, int);
+
+        string getBoardPiece(int, int);
 
         void initializeGameBoard();
 
@@ -30,6 +36,8 @@ class GameBoard
         bool updateBoard(int, string);
 
         bool isBoardFull(int);
+
+
 
 
 

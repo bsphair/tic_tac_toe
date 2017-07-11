@@ -22,6 +22,32 @@ GameBoard::~GameBoard()
     //dtor
 }
 
+int GameBoard::getBoardHeigth(){
+    return boardHeight;
+}
+
+int GameBoard::getBoardWidth(){
+    return boardWidth;
+}
+
+
+bool GameBoard::searchBoard(string playerPiece, int height, int width){
+
+    /*for(int height = 0; height < boardHeight; height++) {
+        for(int width = 0; width < boardWidth; width++){
+                if(board[height][width] == playerPiece){
+                    return true;
+                }
+        }
+    }
+    return false;*/
+    if(board[height][width] == playerPiece){
+        return true;
+    }
+    return false;
+
+}
+
 void GameBoard::initializeGameBoard(){
 
     for(int height = 0; height < boardHeight; height++) {
@@ -125,6 +151,13 @@ bool GameBoard::isBoardFull(int counter){
     }
 
 }
+
+string GameBoard::getBoardPiece(int height, int width){
+
+    return board[height][width];
+}
+
+
 
 
 
