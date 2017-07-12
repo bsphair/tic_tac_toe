@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1499428687 source:c:\users\bspha\documents\programming practice\tictactoe\main.cpp
+	<iostream>
+	<gameboard.hpp>
+	<gameplay.hpp>
+	<ctime>
+	<stdlib.h>
+	<stdio.h>
+
+1499747275 source:c:\users\bspha\documents\programming practice\tictactoe\src\gameboard.cpp
+	<iostream>
+	"gameboard.hpp"
+
+1499747275 c:\users\bspha\documents\programming practice\tictactoe\include\gameboard.hpp
+	<string>
+
+1499837608 source:c:\users\bspha\documents\programming practice\tictactoe\src\gameplay.cpp
+	"gameplay.hpp"
+	<iostream>
+	<ctime>
+	<stdlib.h>
+	<stdio.h>
+	<limits>
+	<iomanip>
+
+1499837608 c:\users\bspha\documents\programming practice\tictactoe\include\gameplay.hpp
+	<gameboard.hpp>
+	<string>
+
