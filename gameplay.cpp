@@ -14,6 +14,7 @@ GamePlay::GamePlay()
     moveCounter = 0;
 
     horizontalTracker = new int(board.getBoardWidth());
+    verticalTracker = new int(board.getBoardHeigth());
 
     //ctor
 }
@@ -28,6 +29,8 @@ GamePlay::~GamePlay()
     //dtor
 }
 
+
+
 /*
 * Description: initializes elements in the horizontalTracker
 *              array to zero
@@ -40,6 +43,25 @@ void GamePlay::initializeHorizontalTracker(){
     }
 }
 
+
+/*
+* Description:
+* Input:
+* Output:
+*/
+void GamePlay::initializeVerticalTracker(){
+    for(int x = 0; x < board.getBoardHeigth(); x++){
+        verticalTracker[x] = 0;
+    }
+}
+
+
+
+/*
+* Description:
+* Input:
+* Output:
+*/
 void GamePlay::setPlayerPieces(){
 
     int userChoice;
@@ -75,6 +97,12 @@ void GamePlay::setPlayerPieces(){
     }
 }
 
+
+/*
+* Description:
+* Input:
+* Output:
+*/
 void GamePlay::playGame(){
 
     int userMove;
@@ -127,8 +155,10 @@ void GamePlay::playGame(){
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 checkPlayerWon = horrizontalScan(playerOne);
+                checkPlayerWon = verticalScan(playerOne);
                 if(checkPlayerWon == true){
                         std::cout << "Player one wins game!" << std::endl;
+                        endGame = true;
                 }
             }
 
@@ -136,11 +166,17 @@ void GamePlay::playGame(){
             takeTurns++; //next players turn
         }
 
+        //playerTwo's turn
         else{
 
             while(!successfulMovePlayerTwo){
                 playerTwoRandomNumber = (rand() % 9 + 1);
                 successfulMovePlayerTwo = board.updateBoard(playerTwoRandomNumber, playerTwo);
+                checkPlayerWon = horrizontalScan(playerTwo);
+                if(checkPlayerWon == true){
+                    std::cout << "Player two wins game!" << std::endl;
+                    endGame = true;
+                }
             }
 
             moveCounter++;
@@ -149,11 +185,15 @@ void GamePlay::playGame(){
 
         board.printBoard();
     }
-
-    printHorizontalTracker();
 }
 
 
+
+/*
+* Description:
+* Input:
+* Output:
+*/
 bool GamePlay::userImputValidation(int userChoice){
 
     switch(userChoice){
@@ -171,9 +211,13 @@ bool GamePlay::userImputValidation(int userChoice){
 }
 
 
-bool GamePlay::horrizontalScan(string playerPiece){
 
-    int inARow = 0;
+/*
+* Description:
+* Input:
+* Output:
+*/
+bool GamePlay::horrizontalScan(string playerPiece){
 
     initializeHorizontalTracker();
 
@@ -197,7 +241,38 @@ bool GamePlay::horrizontalScan(string playerPiece){
 }
 
 
+bool GamePlay::verticalScan(string playerPiece){
 
+    initializeVerticalTracker();
+
+    for(int height = 0; height < board.getBoardHeigth(); height++)
+    {
+
+        for(int width = 0; width < board.getBoardWidth(); width++)
+        {
+
+                if(board.getBoardPiece(height, width) == playerPiece)
+                {
+                    verticalTracker[width]++;
+
+                }
+        if(verticalTracker[width] == 3)
+        {
+            return true;
+        }
+        }
+
+    }
+    return false;
+}
+
+
+
+/*
+* Description:
+* Input:
+* Output:
+*/
 void GamePlay::printHorizontalTracker(){
 
     for(int x = 0; x < board.getBoardWidth(); x++){
@@ -206,14 +281,3 @@ void GamePlay::printHorizontalTracker(){
 }
 
 
-
-            /*
-            if(board.searchBoard(playerPiece, height, width) == true){
-                inARow++;
-            }
-            std::cout << "inARow: " << inARow << std::endl;
-
-            if(inARow == 3){
-                std::cout << "WINS!!!!" << std::endl;
-                break;
-            }*/

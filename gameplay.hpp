@@ -16,6 +16,7 @@ class GamePlay
         int moveCounter;
 
         int *horizontalTracker;
+        int *verticalTracker;
 
 
     public:
@@ -23,6 +24,8 @@ class GamePlay
         virtual ~GamePlay();
 
         void initializeHorizontalTracker();
+        void initializeVerticalTracker();
+
         void printHorizontalTracker();
 
         void setPlayerPieces();
@@ -32,6 +35,7 @@ class GamePlay
         bool userImputValidation(int);
 
         bool horrizontalScan(string);
+        bool verticalScan(string);
 
 };
 
